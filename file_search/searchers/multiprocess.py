@@ -1,5 +1,5 @@
 import logging
-from multiprocessing import Manager, Pool, Process, Queue
+from multiprocessing import Manager, Pool
 import os
 
 from .searcher import FileSearcher

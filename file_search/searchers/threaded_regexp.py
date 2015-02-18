@@ -1,5 +1,5 @@
 import logging
-from Queue import Queue
+from collections import deque
 import threading
 
 from .searcher import FileSearcher
@@ -16,7 +16,7 @@ class ThreadedRegexpFileSearcher(FileSearcher):
             if matchobj:
                 results[line_offset + i] = line
 
-    def enqueue_blocks(self, q, block_size=10000):
+    def get_blocks(self, block_size=10000):
         block = []
         next_item = (0, block, )
         with open(self.filename, "rb") as f:
@@ -24,33 +24,26 @@ class ThreadedRegexpFileSearcher(FileSearcher):
                 block.append(line)
 
                 if len(block) == block_size + 1:
-                    q.put(next_item)
+                    yield next_item
                     block = []
                     next_item = (i + 1, block, )
 
         # Any remaining lines
         if block:
-            q.put(next_item)
-
-        q.put(None)
+            yield next_item
 
     def find_matches(self):
-        queue = Queue()
+        linenum_blocks = deque()
         file_reader_thread = threading.Thread(
-            target=self.enqueue_blocks,
-            args=(queue, ),
+            target=self.get_blocks,
+            args=(linenum_blocks, ),
         )
         file_reader_thread.start()
 
         regexp_threads = []
         results = {}
 
-        while True:
-            next_item = queue.get()
-            if next_item is None:
-                break
-
-            line_offset, block = next_item
+        for line_offset, block in self.get_blocks():
             regexp_thread = threading.Thread(
                 target=self.add_matches_to_result,
                 args=(results, line_offset, block),

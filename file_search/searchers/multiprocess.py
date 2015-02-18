@@ -54,7 +54,6 @@ def find_matches_in_chunk(
             return
 
         result_queue.put((i, results, ))
-        result_queue.put(None)
 
 
 class MultiprocessFileSearcher(FileSearcher):

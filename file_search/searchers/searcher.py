@@ -1,4 +1,3 @@
-from contextlib import contextmanager
 import re
 
 
@@ -8,13 +7,8 @@ class FileSearcher(object):
         self.filename = filename
         self.regexp = re.compile(regexp_str)
 
-    @contextmanager
-    def open_file(self):
-        with open(self.filename, "rb") as f:
-            yield f
-
     def find_matches(self):
-        with self.open_file() as f:
+        with open(self.filename, "rb") as f:
             results = {}
             for i, line in enumerate(f):
                 matchobj = self.regexp.match(line)

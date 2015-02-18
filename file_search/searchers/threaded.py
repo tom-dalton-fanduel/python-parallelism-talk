@@ -29,7 +29,7 @@ class ThreadedFileSearcher(FileSearcher):
         chunk_limit,
         ignore_first_line=True,
     ):
-        with self.open_file() as f:
+        with open(self.filename, "rb") as f:
             f.seek(chunk_offset)
             file_pos = chunk_offset
             results = {}

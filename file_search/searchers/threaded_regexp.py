@@ -19,7 +19,7 @@ class ThreadedRegexpFileSearcher(FileSearcher):
     def enqueue_blocks(self, q, block_size=10000):
         block = []
         next_item = (0, block, )
-        with self.open_file() as f:
+        with open(self.filename, "rb") as f:
             for i, line in enumerate(f):
                 block.append(line)
 

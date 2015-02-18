@@ -29,7 +29,7 @@ def find_matches_in_chunk(
                 # chunk
                 result_queue.put(None)
                 return
-            # Ensure the fuile iterator's read ahead buffer is flushed
+            # Ensure the file iterator's read ahead buffer is flushed
             # Ref http://stackoverflow.com/questions/14145082/file-tell-inconsistency 
             f.seek(f.tell())
             file_pos += len(line)

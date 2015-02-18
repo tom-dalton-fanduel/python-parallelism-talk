@@ -1,2 +1,5 @@
+*.pyc
+
 /big_sample_file
 /pylintrc
+

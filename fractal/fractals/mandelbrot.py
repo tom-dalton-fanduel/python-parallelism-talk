@@ -18,5 +18,10 @@ def calc_point(x0, y0, max_iterations):
 
 def calc_screen_x_line(
         screen_x, screen_h, screen_scale, frac_x0, frac_y0, max_iterations):
-    # This is currently only implemented in the C extension
-    raise NotImplementedError()
+
+    points = []
+    frac_x = frac_x0 + (screen_x / screen_scale)
+    for screen_y in xrange(screen_h):
+        frac_y = frac_y0 + (screen_y / screen_scale)
+        points.append(calc_point(frac_x, frac_y, max_iterations))
+    return points

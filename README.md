@@ -30,3 +30,7 @@ You'll need pygame installed for this example.
 Example (slow):
 
     ./fractal_fun.py --plotter basic
+
+## Talk Examples
+
+    ./flush_cache.sh >/dev/null && ./file_fun.py --filename big_sample_file --match-re "^1" --searcher basic

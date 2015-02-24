@@ -15,6 +15,7 @@ from fractal.plotters.line_threaded import LineThreadedFractalPlotter
 from fractal.plotters.multiprocess import MultiprocessFractalPlotter
 from fractal.plotters.plotter import FractalPlotter
 from fractal.plotters.random_line_multiprocess import RandomLineMultiprocessFractalPlotter
+from fractal.plotters.random_line_threaded import RandomLineThreadedFractalPlotter
 from fractal.plotters.threaded import ThreadedFractalPlotter
 
 
@@ -24,6 +25,7 @@ PLOTTERS = OrderedDict((
     ("line_basic", LineFractalPlotter, ),
     ("threaded", ThreadedFractalPlotter, ),
     ("line_threaded", LineThreadedFractalPlotter, ),
+    ("random_line_threaded", RandomLineThreadedFractalPlotter, ),
     ("multiprocess", MultiprocessFractalPlotter, ),
     ("line_multiprocess", LineMultiprocessFractalPlotter, ),
     ("random_line_multiprocess", RandomLineMultiprocessFractalPlotter, ),
